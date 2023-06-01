@@ -1,0 +1,38 @@
+DROP TABLE IF EXISTS ChecklistItem;
+DROP TABLE IF EXISTS Checklist;
+DROP TABLE IF EXISTS Member;
+
+CREATE TABLE IF NOT EXISTS Member (
+  member_id BIGINT AUTO_INCREMENT COMMENT '회원 ID',
+  username VARCHAR(255) NOT NULL COMMENT '사용자명',
+  password VARCHAR(255) NOT NULL COMMENT '비밀번호',
+  email VARCHAR(255) NOT NULL COMMENT '이메일',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '생성일시',
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '업데이트일시',
+  PRIMARY KEY (member_id)
+) COMMENT='회원 테이블';
+
+CREATE TABLE IF NOT EXISTS Checklist (
+  checklist_id BIGINT AUTO_INCREMENT COMMENT '체크리스트 ID',
+  member_id BIGINT COMMENT '회원 ID',
+  title VARCHAR(255) COMMENT '제목',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '생성일시',
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '업데이트일시',
+  PRIMARY KEY (checklist_id),
+  FOREIGN KEY (member_id) REFERENCES Member(member_id)
+) COMMENT='체크리스트 테이블';
+
+CREATE TABLE IF NOT EXISTS ChecklistItem (
+  checklist_item_id BIGINT AUTO_INCREMENT COMMENT '체크리스트 항목 ID',
+  checklist_id BIGINT COMMENT '체크리스트 ID',
+  category VARCHAR(255) COMMENT '분류',
+  product_name VARCHAR(255) COMMENT '제품명',
+  brand VARCHAR(255) COMMENT '브랜드',
+  need_yn VARCHAR(2) COMMENT '필요 여부',
+  purchase_yn VARCHAR(2) COMMENT '구매 여부',
+  notes TEXT COMMENT '비고',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '생성일시',
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '업데이트일시',
+  PRIMARY KEY (checklist_item_id),
+  FOREIGN KEY (checklist_id) REFERENCES Checklist(checklist_id)
+) COMMENT='체크리스트 항목 테이블';
