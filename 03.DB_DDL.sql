@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS ChecklistItem;
-DROP TABLE IF EXISTS Checklist;
-DROP TABLE IF EXISTS Member;
+DROP TABLE IF EXISTS checklistItem;
+DROP TABLE IF EXISTS checklist;
+DROP TABLE IF EXISTS member;
 
-CREATE TABLE IF NOT EXISTS Member (
+CREATE TABLE IF NOT EXISTS member (
   member_id BIGINT AUTO_INCREMENT COMMENT '회원 ID',
   username VARCHAR(255) NOT NULL COMMENT '사용자명',
   password VARCHAR(255) NOT NULL COMMENT '비밀번호',
@@ -12,17 +12,16 @@ CREATE TABLE IF NOT EXISTS Member (
   PRIMARY KEY (member_id)
 ) COMMENT='회원 테이블';
 
-CREATE TABLE IF NOT EXISTS Checklist (
+CREATE TABLE IF NOT EXISTS checklist (
   checklist_id BIGINT AUTO_INCREMENT COMMENT '체크리스트 ID',
   member_id BIGINT COMMENT '회원 ID',
   title VARCHAR(255) COMMENT '제목',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '생성일시',
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '업데이트일시',
   PRIMARY KEY (checklist_id),
-  FOREIGN KEY (member_id) REFERENCES Member(member_id)
 ) COMMENT='체크리스트 테이블';
 
-CREATE TABLE IF NOT EXISTS ChecklistItem (
+CREATE TABLE IF NOT EXISTS checklistItem (
   checklist_item_id BIGINT AUTO_INCREMENT COMMENT '체크리스트 항목 ID',
   checklist_id BIGINT COMMENT '체크리스트 ID',
   category VARCHAR(255) COMMENT '분류',
@@ -34,5 +33,4 @@ CREATE TABLE IF NOT EXISTS ChecklistItem (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '생성일시',
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '업데이트일시',
   PRIMARY KEY (checklist_item_id),
-  FOREIGN KEY (checklist_id) REFERENCES Checklist(checklist_id)
 ) COMMENT='체크리스트 항목 테이블';
