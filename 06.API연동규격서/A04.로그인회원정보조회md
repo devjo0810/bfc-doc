@@ -1,0 +1,45 @@
+## 1. 개요
+- API 이름: 로인 회원 정보 조회
+
+## 2. 엔드포인트 정보
+- URL: /auth/me
+- HTTP Method: GET
+
+## 3. 요청
+- 요청 형식: none
+
+| 요청헤더 | 설명 |
+|----------|------|
+| Authorization | 인증키 |
+
+## 4. 응답
+- 응답 형식: application/json
+- 응답 코드: 200 ok
+
+| 매개변수 | 타입 | 설명 |
+|----------|------|------|
+| memberId | Number | 회원고유아이디 |
+| name | String | 회원명 |
+| meail | String | 이메일 |
+
+## 5. 오류 처리
+| 오류 코드 | 설명 |
+|----------|------|
+| 401 | 인증 오류 |
+
+## 6. 예제
+- 요청 예제
+```json
+header
+"Authorization": "c0d3d183-6e83-45e6-bf80-d28b5bb7ca48"
+```
+- 응답 예제
+```json
+{
+    "contents": {
+        "memberId": 1,
+        "name": "test1",
+        "email": "test@test.com"
+    }
+}
+```
